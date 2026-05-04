@@ -1,27 +1,25 @@
-export const chantiers = [
-  'Immeuble R+3 Cotonou',
-  'Route Parakou',
-  'École Porto-Novo',
-  'Marché Abomey',
-  'Pont Natitingou',
-];
+// ============================================================
+// CONSTANTES
+// ============================================================
 
 export const departements = [
-  'Maçonnerie', 'Coffrage', 'Ferraillage',
-  'Transport', 'Topographie', 'Sécurité', 'Laboratoire',
+  'IT', 'Marketing', 'RH', 'Finance', 'Commercial', 'Design', 'Support'
 ];
 
 export const postes = [
-  'Chef de chantier', 'Conducteur de travaux', 'Chef équipe',
-  'Maçon', 'Coffreur', 'Ferailleur', 'Chauffeur',
-  'Topographe', 'Agent sécurité', 'Laborantin',
+  'Développeur', 'Designer', 'Commercial', 'Comptable', 'RH', 
+  'Chef de projet', 'Assistant', 'Data Analyst'
 ];
 
-export const typesContrat = ['CDI', 'CDD', 'Journalier'];
-export const typesConge = ['Congé annuel', 'Permission', 'Maladie', 'Accident de travail', 'Maternité/Paternité', 'Fête religieuse'];
+export const typesContrat = ['CDI', 'CDD', 'Stage'];
+export const typesConge = ['Congé annuel', 'Permission', 'Maladie', 'Maternité/Paternité', 'Fête religieuse'];
 export const typesSanction = ['Avertissement oral', 'Avertissement écrit', 'Mise à pied temporaire', 'Licenciement', 'Blâme'];
-export const typesFormation = ['Sécurité chantier', 'CACES (engins)', 'Habilitation électrique', 'Échafaudage', 'Secourisme', 'Lecture de plans', 'Techniques métier'];
-export const typesMateriel = ['EPI', 'Outillage', 'Véhicule', 'Équipement'];
+export const typesFormation = ['Sécurité', 'Management', 'Développement', 'Langues', 'Bureautique', 'Design'];
+export const typesMateriel = ['Informatique', 'Mobilier', 'Téléphonie'];
+
+// ============================================================
+// TYPES
+// ============================================================
 
 export interface Employee {
   id: string;
@@ -30,7 +28,6 @@ export interface Employee {
   photo: string;
   poste: string;
   departement: string;
-  chantier: string;
   dateEmbauche: string;
   anciennete: number;
   statut: 'Présent' | 'Absent' | 'Congé';
@@ -54,15 +51,14 @@ export interface Document {
   dateEmission: string;
   dateExpiration: string;
   statut: 'Valide' | 'Expire bientôt' | 'Expiré';
-  chantier: string;
+  departement: string;
   archived: boolean;
 }
 
 export interface Candidature {
-  candidat: ReactNode;
   id: string;
   poste: string;
-  chantier: string;
+  departement: string;
   candidatNom: string;
   candidatContact: string;
   dateCandidature: string;
@@ -75,22 +71,21 @@ export interface OnboardingItem {
   employeeName: string;
   contratSigne: boolean;
   visiteMedicale: boolean;
-  epiAttribue: boolean;
-  formationSecurite: boolean;
-  badgeChantier: boolean;
+  laptopAttribue: boolean;
+  formationAccueil: boolean;
+  badgeCree: boolean;
 }
 
 export interface Conge {
   id: string;
   employeeId: string;
   employeeName: string;
-  chantier: string;
+  departement: string;
   type: string;
   dateDebut: string;
   dateFin: string;
   statut: 'En attente' | 'Approuvé' | 'Refusé';
   motifRefus?: string;
-  commentaire?: string;
 }
 
 export interface SoldeConge {
@@ -105,7 +100,7 @@ export interface Sanction {
   id: string;
   employeeId: string;
   employeeName: string;
-  chantier: string;
+  departement: string;
   dateIncident: string;
   type: string;
   description: string;
@@ -129,14 +124,13 @@ export interface BulletinPaie {
   id: string;
   employeeId: string;
   employeeName: string;
-  chantier: string;
+  departement: string;
   mois: number;
   annee: number;
   salaireBase: number;
   heuresSup: number;
   montantHeuresSup: number;
   primeDeplacement: number;
-  primeRisque: number;
   primeAnciennete: number;
   primeRendement: number;
   avances: number;
@@ -146,7 +140,6 @@ export interface BulletinPaie {
 }
 
 export interface Formation {
-  employeeId: string;
   id: string;
   titre: string;
   type: string;
@@ -158,6 +151,7 @@ export interface Formation {
   dateDebut: string;
   dateFin: string;
   participants: string[];
+  employeeId?: string;
 }
 
 export interface FormationEmployee {
@@ -174,12 +168,16 @@ export interface Materiel {
   employeeId: string;
   employeeName: string;
   dateAttribution: string;
-  chantier: string;
+  departement: string;
   etat: 'Bon' | 'À remplacer' | 'Manquant/Perdu' | 'En réparation';
 }
 
-const firstNames = ['Koffi', 'Adama', 'Issa', 'Rachid', 'Seydou', 'Moussa', 'Abdou', 'Ousmane', 'Ibrahim', 'Yacoubou', 'Aminata', 'Fatou', 'Mariam', 'Awa', 'Kadiatou', 'Rokia', 'Bintou', 'Aissatou', 'Djenaba', 'Hawa', 'Cisse', 'Ballo', 'Diallo', 'Keita', 'Traore', 'Coulibaly', 'Sissoko', 'Sangare', 'Toure', 'Konate'];
-const lastNames = ['Adambi', 'Agossou', 'Ahouangan', 'Akakpo', 'Assogba', 'Attakpa', 'Azon', 'Dagba', 'Dossou', 'Gandonou', 'Houenou', 'Kinde', 'Kpakpo', 'Lokonon', 'Miguel', 'N\'Dah', 'Ogou', 'Ouro', 'Saka', 'Sossou', 'Vignikin', 'Yehouessi', 'Zannou', 'Ahotin', 'Boko', 'Djossou', 'Gbenou', 'Houin', 'Kpetehoua', 'Lokossou'];
+// ============================================================
+// DONNÉES
+// ============================================================
+
+const firstNames = ['Sophie', 'Marc', 'Isabelle', 'Pierre', 'Nathalie', 'Jean', 'Marie', 'Laurent', 'Catherine', 'Thomas', 'Julie', 'Philippe', 'Anne', 'David', 'Emilie', 'Luc', 'Claire', 'Antoine', 'Hélène', 'Nicolas', 'Audrey', 'François', 'Sarah', 'Michel', 'Céline', 'Julien', 'Valérie', 'Éric', 'Béatrice', 'Vincent'];
+const lastNames = ['Dubois', 'Martin', 'Bernard', 'Durand', 'Moreau', 'Laurent', 'Simon', 'Michel', 'Garcia', 'Leroy', 'Roux', 'Fournier', 'Girard', 'Bonnet', 'Lambert', 'Dupont', 'Petit', 'Robert', 'Richard', 'Faure', 'Blanc', 'Perrin', 'Morin', 'Denis', 'Mercier', 'André', 'Legrand', 'Gauthier', 'Renaud', 'Brun'];
 
 function generateEmployees(): Employee[] {
   return Array.from({ length: 30 }, (_, i) => {
@@ -187,43 +185,39 @@ function generateEmployees(): Employee[] {
     const ln = lastNames[i];
     const poste = postes[i % postes.length];
     const dept = departements[i % departements.length];
-    const chantier = chantiers[i % chantiers.length];
-    const year = 2015 + Math.floor(i / 4);
+    const year = 2018 + Math.floor(i / 5);
     const month = String((i % 12) + 1).padStart(2, '0');
     const day = String((i % 28) + 1).padStart(2, '0');
-    const dateEmbauche = `${year}-${month}-${day}`;
-    const anciennete = 2026 - year;
     const statuts: Employee['statut'][] = ['Présent', 'Présent', 'Présent', 'Absent', 'Congé'];
     return {
       id: `emp-${i + 1}`,
       firstName: fn,
       lastName: ln,
-      photo: `https://images.pexels.com/photos/${1000000 + i * 7}/pexels-photo-${1000000 + i * 7}.jpeg?auto=compress&cs=tinysrgb&w=80&h=80&dpr=1`,
+      photo: '',
       poste,
       departement: dept,
-      chantier,
-      dateEmbauche,
-      anciennete,
+      dateEmbauche: `${year}-${month}-${day}`,
+      anciennete: 2026 - year,
       statut: statuts[i % statuts.length],
-      telephone: `+229 9${String(Math.floor(Math.random() * 10000000)).padStart(7, '0')}`,
-      email: `${fn.toLowerCase()}.${ln.toLowerCase().replace("'", "")}@btp-benin.com`,
-      adresse: `Quartier ${['Akpakpa', 'Ganhi', 'Cadjèhoun', 'Fidjrossè', 'Godomey'][i % 5]}, Cotonou`,
+      telephone: `+33 6 ${String(Math.floor(Math.random() * 100000000)).padStart(8, '0')}`,
+      email: `${fn.toLowerCase()}.${ln.toLowerCase()}@entreprise.fr`,
+      adresse: `${i + 1} rue de la Paix, Paris`,
       situationFamiliale: ['Célibataire', 'Marié(e)', 'Marié(e)', 'Célibataire', 'Marié(e)'][i % 5],
       nombreEnfants: i % 4,
-      dateNaissance: `${1980 + (i % 20)}-${String((i % 12) + 1).padStart(2, '0')}-${String((i % 28) + 1).padStart(2, '0')}`,
-      lieuNaissance: ['Cotonou', 'Porto-Novo', 'Parakou', 'Abomey', 'Natitingou'][i % 5],
-      numeroSecuriteSociale: `BN-${String(1000 + i).padStart(5, '0')}`,
+      dateNaissance: `${1985 + (i % 15)}-${String((i % 12) + 1).padStart(2, '0')}-${String((i % 28) + 1).padStart(2, '0')}`,
+      lieuNaissance: ['Paris', 'Lyon', 'Marseille', 'Bordeaux', 'Lille'][i % 5],
+      numeroSecuriteSociale: `SS-${String(1000 + i).padStart(5, '0')}`,
       typeContrat: typesContrat[i % 3],
     };
   });
 }
 
 function generateDocuments(employees: Employee[]): Document[] {
-  const docTypes = ['Contrat de travail', 'Avenant', 'Certificat médical', 'Habilitation', 'Attestation formation', 'Fiche de poste', 'Sanction', 'Bulletin de paie'];
+  const docTypes = ['Contrat de travail', 'Avenant', 'Certificat médical', 'Attestation formation', 'Fiche de poste', 'Sanction', 'Bulletin de paie'];
   const docs: Document[] = [];
   let id = 1;
   employees.forEach((emp) => {
-    const numDocs = 2 + Math.floor(Math.random() * 3);
+    const numDocs = 2 + (id % 3);
     for (let j = 0; j < numDocs; j++) {
       const type = docTypes[(id - 1) % docTypes.length];
       const yearEmit = 2024 + (j % 2);
@@ -231,270 +225,170 @@ function generateDocuments(employees: Employee[]): Document[] {
       const dayEmit = String(((id * 7) % 28) + 1).padStart(2, '0');
       const expMonth = String(((id * 3 + 6) % 12) + 1).padStart(2, '0');
       const expYear = yearEmit + (expMonth < monthEmit ? 1 : 0);
-      const dateEmission = `${yearEmit}-${monthEmit}-${dayEmit}`;
       const dateExpiration = type === 'Contrat de travail' ? '2027-12-31' : `${expYear}-${expMonth}-${dayEmit}`;
-      const now = new Date();
-      const exp = new Date(dateExpiration);
-      const diff = (exp.getTime() - now.getTime()) / (1000 * 60 * 60 * 24);
+      const diff = (new Date(dateExpiration).getTime() - Date.now()) / 86400000;
       let statut: Document['statut'] = 'Valide';
       if (diff < 0) statut = 'Expiré';
       else if (diff < 30) statut = 'Expire bientôt';
       docs.push({
-        id: `doc-${id}`,
+        id: `doc-${id++}`,
         employeeId: emp.id,
         employeeName: `${emp.firstName} ${emp.lastName}`,
         type,
         titre: `${type} - ${emp.firstName} ${emp.lastName}`,
-        dateEmission,
+        dateEmission: `${yearEmit}-${monthEmit}-${dayEmit}`,
         dateExpiration,
         statut,
-        chantier: emp.chantier,
+        departement: emp.departement,
         archived: false,
       });
-      id++;
     }
   });
   return docs;
 }
 
 function generateCandidatures(): Candidature[] {
-  const candidats = ['Paul Akakpo', 'Marie Dossou', 'Jean Kinde', 'Fatou Saka', 'Ibrahim Toure', 'Awa N\'Dah', 'Moussa Diallo', 'Rokia Gbenou'];
+  const candidats = ['Paul Martin', 'Marie Blanc', 'Jean Perrin', 'Fatou Diallo', 'Ibrahim Touré', 'Awa Ndiaye', 'Moussa Sow', 'Rokia Keita'];
   const statuts: Candidature['statut'][] = ['Reçue', 'En évaluation', 'Entretien', 'Offre envoyée', 'Acceptée', 'Refusée'];
   return candidats.map((c, i) => ({
     id: `cand-${i + 1}`,
     poste: postes[(i * 3) % postes.length],
-    chantier: chantiers[i % chantiers.length],
+    departement: departements[i % departements.length],
     candidatNom: c,
-    candidatContact: `+229 9${String(Math.floor(Math.random() * 10000000)).padStart(7, '0')}`,
-    dateCandidature: `2026-0${String((i % 3) + 1)}-${String((i * 5 % 28) + 1).padStart(2, '0')}`,
+    candidatContact: `+33 6 ${String(Math.floor(Math.random() * 100000000)).padStart(8, '0')}`,
+    dateCandidature: `2026-0${(i % 3) + 1}-${String((i * 5 % 28) + 1).padStart(2, '0')}`,
     statut: statuts[i % statuts.length],
   }));
 }
 
 function generateOnboarding(): OnboardingItem[] {
   return [
-    { id: 'onb-1', employeeId: 'emp-29', employeeName: 'Ballo N\'Dah', contratSigne: true, visiteMedicale: true, epiAttribue: false, formationSecurite: false, badgeChantier: false },
-    { id: 'onb-2', employeeId: 'emp-30', employeeName: 'Diallo Lokossou', contratSigne: true, visiteMedicale: false, epiAttribue: false, formationSecurite: false, badgeChantier: false },
+    { id: 'onb-1', employeeId: 'emp-29', employeeName: 'Béatrice Renaud', contratSigne: true, visiteMedicale: true, laptopAttribue: false, formationAccueil: false, badgeCree: false },
+    { id: 'onb-2', employeeId: 'emp-30', employeeName: 'Vincent Brun', contratSigne: true, visiteMedicale: false, laptopAttribue: false, formationAccueil: false, badgeCree: false },
   ];
 }
 
 function generateConges(employees: Employee[]): Conge[] {
-  const conges: Conge[] = [];
   const onLeave = employees.filter(e => e.statut === 'Congé');
-  onLeave.forEach((emp, i) => {
-    conges.push({
-      id: `cong-${i + 1}`,
-      employeeId: emp.id,
-      employeeName: `${emp.firstName} ${emp.lastName}`,
-      chantier: emp.chantier,
-      type: typesConge[i % typesConge.length],
-      dateDebut: '2026-04-28',
-      dateFin: '2026-05-10',
-      statut: 'Approuvé',
-    });
-  });
   const pending = employees.filter(e => e.statut === 'Présent').slice(0, 3);
-  pending.forEach((emp, i) => {
-    conges.push({
-      id: `cong-${onLeave.length + i + 1}`,
-      employeeId: emp.id,
-      employeeName: `${emp.firstName} ${emp.lastName}`,
-      chantier: emp.chantier,
-      type: typesConge[(i + 2) % typesConge.length],
-      dateDebut: '2026-05-15',
-      dateFin: '2026-05-20',
-      statut: 'En attente',
-    });
-  });
-  return conges;
+  return [
+    ...onLeave.map((emp, i) => ({
+      id: `cong-${i + 1}`, employeeId: emp.id, employeeName: `${emp.firstName} ${emp.lastName}`,
+      departement: emp.departement, type: typesConge[i % typesConge.length],
+      dateDebut: '2026-04-28', dateFin: '2026-05-10', statut: 'Approuvé' as const,
+    })),
+    ...pending.map((emp, i) => ({
+      id: `cong-${onLeave.length + i + 1}`, employeeId: emp.id, employeeName: `${emp.firstName} ${emp.lastName}`,
+      departement: emp.departement, type: typesConge[(i + 2) % typesConge.length],
+      dateDebut: '2026-05-15', dateFin: '2026-05-20', statut: 'En attente' as const,
+    })),
+  ];
 }
 
 function generateSoldes(employees: Employee[]): SoldeConge[] {
-  return employees.map((emp, i) => ({
-    employeeId: emp.id,
-    employeeName: `${emp.firstName} ${emp.lastName}`,
-    acquis: 24 + Math.floor(i / 5),
-    pris: 5 + (i % 10),
-    restants: 19 + Math.floor(i / 5) - (5 + (i % 10)),
-  }));
+  return employees.map((emp, i) => {
+    const acquis = 25 + Math.floor(i / 5);
+    const pris = 5 + (i % 10);
+    return { employeeId: emp.id, employeeName: `${emp.firstName} ${emp.lastName}`, acquis, pris, restants: acquis - pris };
+  });
 }
 
 function generateSanctions(employees: Employee[]): Sanction[] {
   return [
-    { id: 'san-1', employeeId: 'emp-5', employeeName: `${employees[4].firstName} ${employees[4].lastName}`, chantier: employees[4].chantier, dateIncident: '2026-03-15', type: 'Avertissement oral', description: 'Retard répété sur le chantier', temoins: 'Chef équipe Koffi', decision: 'Avertissement verbal notifié', dateApplication: '2026-03-16', statut: 'Appliquée' },
-    { id: 'san-2', employeeId: 'emp-12', employeeName: `${employees[11].firstName} ${employees[11].lastName}`, chantier: employees[11].chantier, dateIncident: '2026-04-01', type: 'Avertissement écrit', description: 'Non-respect des consignes de sécurité', temoins: 'Agent sécurité, Chef chantier', decision: 'Avertissement écrit avec mise en demeure', dateApplication: '2026-04-03', statut: 'En cours' },
-    { id: 'san-3', employeeId: 'emp-20', employeeName: `${employees[19].firstName} ${employees[19].lastName}`, chantier: employees[19].chantier, dateIncident: '2026-04-10', type: 'Mise à pied temporaire', description: 'Altercation avec un collègue sur le chantier', temoins: '3 membres équipe', decision: 'Mise à pied 3 jours', dateApplication: '2026-04-12', statut: 'Contestée' },
+    { id: 'san-1', employeeId: 'emp-5', employeeName: `${employees[4].firstName} ${employees[4].lastName}`, departement: employees[4].departement, dateIncident: '2026-03-15', type: 'Avertissement oral', description: 'Retards répétés au bureau', temoins: 'Chef de projet', decision: 'Avertissement verbal', dateApplication: '2026-03-16', statut: 'Appliquée' },
+    { id: 'san-2', employeeId: 'emp-12', employeeName: `${employees[11].firstName} ${employees[11].lastName}`, departement: employees[11].departement, dateIncident: '2026-04-01', type: 'Avertissement écrit', description: 'Non-respect des procédures', temoins: 'Manager', decision: 'Avertissement écrit', dateApplication: '2026-04-03', statut: 'En cours' },
+    { id: 'san-3', employeeId: 'emp-20', employeeName: `${employees[19].firstName} ${employees[19].lastName}`, departement: employees[19].departement, dateIncident: '2026-04-10', type: 'Mise à pied temporaire', description: 'Altercation avec un collègue', temoins: '3 témoins', decision: 'Mise à pied 3 jours', dateApplication: '2026-04-12', statut: 'Contestée' },
   ];
 }
 
 function generateConflits(): Conflit[] {
   return [
-    { id: 'conf-1', type: 'personnel', personnesImpliquees: 'Koffi Adambi / Adama Agossou', description: 'Dispute sur l\'organisation du travail', resolution: 'Médiation en cours', date: '2026-04-15', statut: 'En médiation' },
-    { id: 'conf-2', type: 'matériel', personnesImpliquees: 'Issa Ahouangan / Moussa Dossou', description: 'Litige sur l\'attribution d\'un véhicule', resolution: 'Réaffectation du véhicule', date: '2026-03-20', statut: 'Résolu' },
+    { id: 'conf-1', type: 'personnel', personnesImpliquees: 'Sophie Dubois / Marc Martin', description: "Désaccord sur l'organisation du projet", resolution: 'Médiation en cours', date: '2026-04-15', statut: 'En médiation' },
+    { id: 'conf-2', type: 'matériel', personnesImpliquees: 'Pierre Durand / Isabelle Bernard', description: "Litige sur l'attribution d'un bureau", resolution: 'Bureau réattribué', date: '2026-03-20', statut: 'Résolu' },
   ];
 }
 
 function generateBulletins(employees: Employee[]): BulletinPaie[] {
   return employees.map((emp, i) => {
-    const salaireBase = 80000 + (postes.indexOf(emp.poste) * 15000) + (emp.anciennete * 5000);
-    const heuresSup = i % 5;
-    const montantHeuresSup = heuresSup * 2500;
-    const primeDeplacement = emp.chantier !== 'Immeuble R+3 Cotonou' ? 15000 : 5000;
-    const primeRisque = ['Maçonnerie', 'Coffrage', 'Ferraillage'].includes(emp.departement) ? 10000 : 5000;
-    const primeAnciennete = emp.anciennete * 2000;
-    const primeRendement = (i % 3 === 0) ? 10000 : 5000;
-    const avances = (i % 4 === 0) ? 20000 : 0;
-    const absencesNonJustifiees = 0;
-    const retenuesDiverses = 0;
-    const cotisationsSociales = Math.round(salaireBase * 0.04);
+    const salaireBase = 2500 + (postes.indexOf(emp.poste) * 300) + (emp.anciennete * 50);
     return {
-      id: `bul-${i + 1}`,
-      employeeId: emp.id,
-      employeeName: `${emp.firstName} ${emp.lastName}`,
-      chantier: emp.chantier,
-      mois: 4,
-      annee: 2026,
-      salaireBase,
-      heuresSup,
-      montantHeuresSup,
-      primeDeplacement,
-      primeRisque,
-      primeAnciennete,
-      primeRendement,
-      avances,
-      absencesNonJustifiees,
-      retenuesDiverses,
-      cotisationsSociales,
+      id: `bul-${i + 1}`, employeeId: emp.id, employeeName: `${emp.firstName} ${emp.lastName}`,
+      departement: emp.departement, mois: 4, annee: 2026, salaireBase,
+      heuresSup: i % 5, montantHeuresSup: (i % 5) * 25,
+      primeDeplacement: 100, primeAnciennete: emp.anciennete * 20,
+      primeRendement: (i % 3 === 0) ? 200 : 100,
+      avances: (i % 4 === 0) ? 300 : 0, absencesNonJustifiees: 0, retenuesDiverses: 0,
+      cotisationsSociales: Math.round(salaireBase * 0.22),
     };
   });
 }
 
 function generateFormations(): Formation[] {
   return [
-    { id: 'form-1', titre: 'Sécurité chantier Niveau 1', type: 'Sécurité chantier', duree: '2 jours', prerequis: 'Aucun', cout: 50000, organisme: 'INPB', statut: 'Programmé', dateDebut: '2026-05-20', dateFin: '2026-05-21', participants: ['emp-1', 'emp-5', 'emp-10'] },
-    { id: 'form-2', titre: 'CACES R372 - Engins de chantier', type: 'CACES (engins)', duree: '5 jours', prerequis: 'Expérience conduite', cout: 150000, organisme: 'CACES Bénin', statut: 'En cours', dateDebut: '2026-05-01', dateFin: '2026-05-05', participants: ['emp-3', 'emp-7'] },
-    { id: 'form-3', titre: 'Habilitation électrique B1V', type: 'Habilitation électrique', duree: '3 jours', prerequis: 'Connaissances de base électricité', cout: 80000, organisme: 'APAVE', statut: 'Terminé', dateDebut: '2026-03-10', dateFin: '2026-03-12', participants: ['emp-2', 'emp-8', 'emp-15'] },
-    { id: 'form-4', titre: 'Montage échafaudage', type: 'Échafaudage', duree: '2 jours', prerequis: 'Aucun', cout: 60000, organisme: 'BTP Formation', statut: 'Programmé', dateDebut: '2026-06-01', dateFin: '2026-06-02', participants: ['emp-4', 'emp-9', 'emp-11'] },
-    { id: 'form-5', titre: 'Secourisme du travail', type: 'Secourisme', duree: '2 jours', prerequis: 'Aucun', cout: 45000, organisme: 'Croix-Rouge Bénin', statut: 'Terminé', dateDebut: '2026-02-15', dateFin: '2026-02-16', participants: ['emp-1', 'emp-6', 'emp-12', 'emp-20'] },
-    { id: 'form-6', titre: 'Lecture de plans BTP', type: 'Lecture de plans', duree: '3 jours', prerequis: 'Savoir lire et écrire', cout: 70000, organisme: 'INPB', statut: 'Programmé', dateDebut: '2026-06-15', dateFin: '2026-06-17', participants: ['emp-2', 'emp-5'] },
-    { id: 'form-7', titre: 'Techniques de coffrage avancées', type: 'Techniques métier', duree: '4 jours', prerequis: 'Expérience coffrage', cout: 90000, organisme: 'BTP Formation', statut: 'En cours', dateDebut: '2026-04-28', dateFin: '2026-05-01', participants: ['emp-4', 'emp-11', 'emp-16'] },
+    { id: 'form-1', titre: 'Sécurité au travail', type: 'Sécurité', duree: '1 jour', prerequis: 'Aucun', cout: 500, organisme: 'APAVE', statut: 'Programmé', dateDebut: '2026-05-20', dateFin: '2026-05-20', participants: ['emp-1', 'emp-5', 'emp-10'] },
+    { id: 'form-2', titre: "Management d'équipe", type: 'Management', duree: '3 jours', prerequis: 'Manager', cout: 1500, organisme: 'CEGOS', statut: 'En cours', dateDebut: '2026-05-01', dateFin: '2026-05-03', participants: ['emp-3', 'emp-7'] },
+    { id: 'form-3', titre: 'Développement React', type: 'Développement', duree: '5 jours', prerequis: 'JavaScript', cout: 2500, organisme: 'Udemy', statut: 'Terminé', dateDebut: '2026-03-10', dateFin: '2026-03-14', participants: ['emp-2', 'emp-8'] },
+    { id: 'form-4', titre: 'Excel avancé', type: 'Bureautique', duree: '2 jours', prerequis: 'Aucun', cout: 600, organisme: 'Bureau Formation', statut: 'Programmé', dateDebut: '2026-06-01', dateFin: '2026-06-02', participants: ['emp-4', 'emp-9'] },
+    { id: 'form-5', titre: 'Anglais professionnel', type: 'Langues', duree: '10 jours', prerequis: 'Aucun', cout: 1200, organisme: 'Wall Street English', statut: 'Terminé', dateDebut: '2026-02-15', dateFin: '2026-02-25', participants: ['emp-1', 'emp-6'] },
   ];
 }
 
 function generateFormationEmployees(employees: Employee[]): FormationEmployee[] {
   return employees.slice(0, 15).map((emp, i) => ({
-    employeeId: emp.id,
-    employeeName: `${emp.firstName} ${emp.lastName}`,
+    employeeId: emp.id, employeeName: `${emp.firstName} ${emp.lastName}`,
     formations: [
-      { titre: 'Sécurité chantier', date: '2026-01-15', statut: 'Terminé', certificat: true },
-      ...(i % 3 === 0 ? [{ titre: 'CACES R372', date: '2026-03-01', statut: 'Terminé', certificat: true }] : []),
-      ...(i % 5 === 0 ? [{ titre: 'Habilitation électrique', date: '2026-03-10', statut: 'Terminé', certificat: true }] : []),
+      { titre: 'Sécurité au travail', date: '2026-01-15', statut: 'Terminé', certificat: true },
+      ...(i % 3 === 0 ? [{ titre: 'Développement React', date: '2026-03-01', statut: 'Terminé', certificat: true }] : []),
     ],
-    competences: [emp.poste, ...(i % 2 === 0 ? ['Sécurité chantier'] : []), ...(i % 3 === 0 ? ['Conduite engins'] : [])],
+    competences: [emp.poste, ...(i % 2 === 0 ? ['Sécurité'] : []), ...(i % 3 === 0 ? ['React'] : [])],
   }));
 }
 
 function generateMateriels(employees: Employee[]): Materiel[] {
   const items: Materiel[] = [];
-  const epiItems = ['Casque sécurité', 'Gants de protection', 'Chaussures de sécurité', 'Gilet haute visibilité', 'Lunettes protection'];
-  const outillageItems = ['Perceuse', 'Marteau-piqueur', 'Scie circulaire', 'Meuleuse', 'Bétonnière'];
-  const vehiculeItems = ['Camion benne', 'Pick-up Toyota', 'Grue mobile', 'Niveleuse', 'Compacteur'];
-  const equipItems = ['Téléphone chantier', 'Talkie-walkie', 'GPS topographie', 'Appareil photo chantier', 'Tablette terrain'];
-
   let id = 1;
-  epiItems.forEach((item, i) => {
+  ['MacBook Pro', 'Dell XPS', 'ThinkPad', 'HP EliteBook'].forEach((item, i) => {
     const emp = employees[i * 3];
-    items.push({
-      id: `mat-${id}`,
-      type: 'EPI',
-      designation: item,
-      employeeId: emp.id,
-      employeeName: `${emp.firstName} ${emp.lastName}`,
-      dateAttribution: '2026-01-15',
-      chantier: emp.chantier,
-      etat: i === 2 ? 'À remplacer' : i === 4 ? 'En réparation' : 'Bon',
-    });
-    id++;
+    items.push({ id: `mat-${id++}`, type: 'Informatique', designation: item, employeeId: emp.id, employeeName: `${emp.firstName} ${emp.lastName}`, dateAttribution: '2026-01-15', departement: emp.departement, etat: i === 2 ? 'À remplacer' : 'Bon' });
   });
-  outillageItems.forEach((item, i) => {
+  ['iPhone 14', 'Samsung S23', 'Google Pixel'].forEach((item, i) => {
     const emp = employees[(i * 4) + 1];
-    items.push({
-      id: `mat-${id}`,
-      type: 'Outillage',
-      designation: item,
-      employeeId: emp.id,
-      employeeName: `${emp.firstName} ${emp.lastName}`,
-      dateAttribution: '2026-02-01',
-      chantier: emp.chantier,
-      etat: i === 3 ? 'Manquant/Perdu' : 'Bon',
-    });
-    id++;
+    items.push({ id: `mat-${id++}`, type: 'Téléphonie', designation: item, employeeId: emp.id, employeeName: `${emp.firstName} ${emp.lastName}`, dateAttribution: '2026-02-01', departement: emp.departement, etat: 'Bon' });
   });
-  vehiculeItems.forEach((item, i) => {
+  ['Écran 27"', 'Écran 24"'].forEach((item, i) => {
     const emp = employees[(i * 6) + 2];
-    items.push({
-      id: `mat-${id}`,
-      type: 'Véhicule',
-      designation: item,
-      employeeId: emp.id,
-      employeeName: `${emp.firstName} ${emp.lastName}`,
-      dateAttribution: '2025-11-01',
-      chantier: emp.chantier,
-      etat: 'Bon',
-    });
-    id++;
-  });
-  equipItems.forEach((item, i) => {
-    const emp = employees[(i * 5) + 3];
-    items.push({
-      id: `mat-${id}`,
-      type: 'Équipement',
-      designation: item,
-      employeeId: emp.id,
-      employeeName: `${emp.firstName} ${emp.lastName}`,
-      dateAttribution: '2026-01-20',
-      chantier: emp.chantier,
-      etat: i === 1 ? 'À remplacer' : 'Bon',
-    });
-    id++;
+    items.push({ id: `mat-${id++}`, type: 'Informatique', designation: item, employeeId: emp.id, employeeName: `${emp.firstName} ${emp.lastName}`, dateAttribution: '2025-11-01', departement: emp.departement, etat: 'Bon' });
   });
   return items;
 }
 
+// ============================================================
+// EXPORTS
+// ============================================================
+
 const employees = generateEmployees();
-const documents = generateDocuments(employees);
-const candidatures = generateCandidatures();
-const onboarding = generateOnboarding();
-const conges = generateConges(employees);
-const soldes = generateSoldes(employees);
-const sanctions = generateSanctions(employees);
-const conflits = generateConflits();
-const bulletins = generateBulletins(employees);
-const formations = generateFormations();
-const formationEmployees = generateFormationEmployees(employees);
-const materiels = generateMateriels(employees);
 
 export const mockData = {
   employees,
-  documents,
-  candidatures,
-  onboarding,
-  conges,
-  soldes,
-  sanctions,
-  conflits,
-  bulletins,
-  formations,
-  formationEmployees,
-  materiels,
+  documents: generateDocuments(employees),
+  candidatures: generateCandidatures(),
+  onboarding: generateOnboarding(),
+  conges: generateConges(employees),
+  soldes: generateSoldes(employees),
+  sanctions: generateSanctions(employees),
+  conflits: generateConflits(),
+  bulletins: generateBulletins(employees),
+  formations: generateFormations(),
+  formationEmployees: generateFormationEmployees(employees),
+  materiels: generateMateriels(employees),
 };
 
 export function getNetPaie(b: BulletinPaie): number {
-  const totalGains = b.salaireBase + b.montantHeuresSup + b.primeDeplacement + b.primeRisque + b.primeAnciennete + b.primeRendement;
-  const totalRetenues = b.avances + b.absencesNonJustifiees + b.retenuesDiverses + b.cotisationsSociales;
-  return totalGains - totalRetenues;
+  const gains = b.salaireBase + b.montantHeuresSup + b.primeDeplacement + b.primeAnciennete + b.primeRendement;
+  const retenues = b.avances + b.absencesNonJustifiees + b.retenuesDiverses + b.cotisationsSociales;
+  return gains - retenues;
 }
 
 export function formatCurrency(amount: number): string {
-  return new Intl.NumberFormat('fr-FR', { style: 'currency', currency: 'XOF', minimumFractionDigits: 0 }).format(amount);
+  return new Intl.NumberFormat('fr-FR', { style: 'currency', currency: 'EUR', minimumFractionDigits: 0 }).format(amount);
 }
